@@ -1,0 +1,124 @@
+{
+  "type": "component",
+  "metadata": {},
+  "schema": {
+    "name": "datatable",
+    "friendlyName": "Advanced Data Table",
+    "description": "A feature-rich data table with pagination, search, sorting, and row selection",
+    "icon": "Table",
+    "hasChildren": true,
+    "showEmptyState": false,
+    "illegalChildren": ["section", "rowselectionprovider"],
+    "settings": [
+      {
+        "type": "dataProvider",
+        "label": "Data Provider",
+        "key": "dataProvider",
+        "required": true
+      },
+      {
+        "type": "number",
+        "label": "Items Per Page",
+        "key": "itemsPerPage",
+        "defaultValue": 5,
+        "min": 1,
+        "max": 100
+      },
+      {
+        "type": "boolean",
+        "label": "Enable Search",
+        "key": "searchable",
+        "defaultValue": true
+      },
+      {
+        "type": "boolean",
+        "label": "Enable Sorting",
+        "key": "sortable",
+        "defaultValue": true
+      },
+      {
+        "type": "boolean",
+        "label": "Enable Row Selection",
+        "key": "selectable",
+        "defaultValue": true
+      },
+      {
+        "type": "boolean",
+        "label": "Show Actions",
+        "key": "showActions",
+        "defaultValue": true
+      },
+      {
+        "type": "event",
+        "label": "On Row Click",
+        "key": "onRowClick",
+        "context": [
+          {
+            "label": "Row Data",
+            "key": "row"
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "label": "On Edit",
+        "key": "onEdit",
+        "context": [
+          {
+            "label": "Row Data",
+            "key": "row"
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "label": "On Delete",
+        "key": "onDelete",
+        "context": [
+          {
+            "label": "Row Data",
+            "key": "row"
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "label": "On View",
+        "key": "onView",
+        "context": [
+          {
+            "label": "Row Data",
+            "key": "row"
+          }
+        ]
+      }
+    ],
+    "context": [
+      {
+        "type": "static",
+        "values": [
+          {
+            "label": "Selected Rows",
+            "key": "selectedRows",
+            "type": "array"
+          },
+          {
+            "label": "Current Page",
+            "key": "currentPage",
+            "type": "number"
+          },
+          {
+            "label": "Total Pages",
+            "key": "totalPages",
+            "type": "number"
+          },
+          {
+            "label": "Total Rows",
+            "key": "totalRows",
+            "type": "number"
+          }
+        ]
+      }
+    ]
+  }
+}
