@@ -79,7 +79,7 @@
     refresh: fetchData
   };
   
-  // Fetch data from Budibase API
+  
   async function fetchData() {
     if (!datasource && !table) return;
     
@@ -90,19 +90,36 @@
       let response;
       
       if (table) {
-        // Fetch from table
-        response = await API.searchTable(table);
+        // For table data source, use the correct API method
+        const query = {
+          tableId: table._id || table,
+          limit: 1000 // Adjust as needed
+        };
+        response = await API.searchTable(query);
         
-        // Get table schema
-        const tableInfo = await API.fetchTableDefinition(table);
-        tableSchema = tableInfo?.schema || {};
+        // Get table schema - use the table object directly if available
+        if (table.schema) {
+          tableSchema = table.schema;
+        } else {
+          // Fallback to API call
+          try {
+            const tableInfo = await API.fetchTableDefinition(table._id || table);
+            tableSchema = tableInfo?.schema || {};
+          } catch (schemaError) {
+            console.warn("Could not fetch table schema:", schemaError);
+            tableSchema = {};
+          }
+        }
       } else if (datasource) {
-        // Fetch from datasource (API, etc.)
+        // For other data sources
         response = await API.fetchDatasource(datasource);
       }
       
+      // Handle different response formats
       if (response?.rows) {
         allRows = response.rows;
+      } else if (response?.data) {
+        allRows = response.data;
       } else if (Array.isArray(response)) {
         allRows = response;
       } else {

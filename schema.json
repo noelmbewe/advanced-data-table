@@ -93,6 +93,17 @@
       },
       {
         "type": "event",
+        "label": "On View",
+        "key": "onView",
+        "context": [
+          {
+            "label": "Row Data",
+            "key": "row"
+          }
+        ]
+      },
+      {
+        "type": "event",
         "label": "On Refresh",
         "key": "onRefresh",
         "context": [

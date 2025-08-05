@@ -1,13 +1,14 @@
 {
   "name": "advanced-data-table",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Feature-rich data table with pagination, search, and sorting",
   "license": "MIT",
   "svelte": "index.js",
   "module": "dist/plugin.min.js",
   "scripts": {
     "build": "rollup -c",
-    "watch": "rollup -cw"
+    "watch": "rollup -cw",
+    "dev": "rollup -cw"
   },
   "dependencies": {
     "@crownframework/svelte-error-boundary": "^1.0.3",
