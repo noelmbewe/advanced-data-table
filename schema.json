@@ -11,10 +11,20 @@
     "illegalChildren": ["section", "rowselectionprovider"],
     "settings": [
       {
-        "type": "dataProvider",
-        "label": "Data Provider",
-        "key": "dataProvider",
-        "required": true
+        "type": "datasource",
+        "label": "Data Source",
+        "key": "datasource"
+      },
+      {
+        "type": "table",
+        "label": "Table",
+        "key": "table"
+      },
+      {
+        "type": "multifield",
+        "label": "Columns to Display",
+        "key": "columns",
+        "placeholder": "Leave empty to show all columns"
       },
       {
         "type": "number",
@@ -83,12 +93,16 @@
       },
       {
         "type": "event",
-        "label": "On View",
-        "key": "onView",
+        "label": "On Refresh",
+        "key": "onRefresh",
         "context": [
           {
-            "label": "Row Data",
-            "key": "row"
+            "label": "Rows",
+            "key": "rows"
+          },
+          {
+            "label": "Total Rows",
+            "key": "totalRows"
           }
         ]
       }
@@ -113,9 +127,19 @@
             "type": "number"
           },
           {
-            "label": "Total Rows",
-            "key": "totalRows",
-            "type": "number"
+            "label": "Loading State",
+            "key": "loading",
+            "type": "boolean"
+          },
+          {
+            "label": "Error Message",
+            "key": "error",
+            "type": "text"
+          },
+          {
+            "label": "Refresh Function",
+            "key": "refresh",
+            "type": "string"
           }
         ]
       }
