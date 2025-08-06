@@ -31,19 +31,176 @@
   let allRows = [];
   let tableSchema = {};
   
-  // Reactive data fetching
-  $: if (datasource || table) {
-    fetchData();
-  }
+  // Dummy customer data
+  const dummyData = [
+    {
+      _id: "041d45cd-f8c7-48cf-8096-d80e1007a654",
+      customerid: "041d45cd-f8c7-48cf-8096-d80e1007a654",
+      firstname: "den",
+      lastname: "deni",
+      email: "den@gmail.com",
+      phonenumber: "999000000",
+      nationalid: "TRTdjwey",
+      isconsent: true,
+      created_at: "2025-07-29T11:36:10.219Z",
+      datecreated: "2025-08-04T13:59:36.315Z",
+      updated_at: "2025-08-04T13:59:36.315Z"
+    },
+    {
+      _id: "10320437-b0a8-47a7-9735-903b983ea580",
+      customerid: "10320437-b0a8-47a7-9735-903b983ea580",
+      firstname: "try",
+      lastname: "ken",
+      email: "try@gmail.com",
+      phonenumber: "266000000000",
+      nationalid: "hg72nk94",
+      isconsent: true,
+      created_at: "2025-07-28T07:55:33.517Z",
+      datecreated: "2025-08-04T10:07:00.995Z",
+      updated_at: "2025-08-04T10:07:00.995Z"
+    },
+    {
+      _id: "218ff501-6eb4-4faf-a086-6f4ee030ea66",
+      customerid: "218ff501-6eb4-4faf-a086-6f4ee030ea66",
+      firstname: "try",
+      lastname: "Noel",
+      email: "try@gmail.com",
+      phonenumber: "266000000000",
+      nationalid: "WHTh632j",
+      isconsent: true,
+      created_at: "2025-07-28T07:46:16.994Z",
+      datecreated: "2025-08-04T10:06:25.946Z",
+      updated_at: "2025-08-04T10:06:25.946Z"
+    },
+    {
+      _id: "23cccea2-6456-46a2-92ed-cb94e73beedb",
+      customerid: "23cccea2-6456-46a2-92ed-cb94e73beedb",
+      firstname: "ken",
+      lastname: "dffd",
+      email: "ken@gmail.com",
+      phonenumber: "4989457",
+      nationalid: "fdf",
+      isconsent: true,
+      created_at: "2025-08-04T00:36:21.815Z",
+      datecreated: "2025-08-04T08:24:50.533Z",
+      updated_at: "2025-08-04T08:24:50.533Z"
+    },
+    {
+      _id: "285c550a-794e-409d-92f7-d29027dbfad2",
+      customerid: "285c550a-794e-409d-92f7-d29027dbfad2",
+      firstname: "ken",
+      lastname: "Feri",
+      email: "ken@gmail.com",
+      phonenumber: "26600000000000",
+      nationalid: "Hkslf8348",
+      isconsent: true,
+      created_at: "2025-08-04T08:06:44.282Z",
+      datecreated: "2025-08-04T08:25:45.908Z",
+      updated_at: "2025-08-04T08:25:45.908Z"
+    },
+    {
+      _id: "3df6db58-a5d0-4ce9-b104-add38fa54e4e",
+      customerid: "3df6db58-a5d0-4ce9-b104-add38fa54e4e",
+      firstname: "try",
+      lastname: "junior",
+      email: "try@gmail.com",
+      phonenumber: "100000000000",
+      nationalid: "rrrrrrrrr",
+      isconsent: true,
+      created_at: "2025-07-29T04:19:04.544Z",
+      datecreated: "2025-08-04T10:06:43.816Z",
+      updated_at: "2025-08-04T10:06:43.816Z"
+    },
+    {
+      _id: "4293c7ce-b8f7-4498-908e-f2e920e9bb23",
+      customerid: "4293c7ce-b8f7-4498-908e-f2e920e9bb23",
+      firstname: "Peter",
+      lastname: "parker",
+      email: "pp@gmail.com",
+      phonenumber: "266000000000000",
+      nationalid: "WH623hjs",
+      isconsent: false,
+      created_at: "2025-07-28T07:56:23.103Z",
+      datecreated: "2025-07-28T07:56:23.103Z",
+      updated_at: "2025-07-28T07:56:23.103Z"
+    },
+    {
+      _id: "a0bc2862-6eeb-4574-81ee-d51ad24b6a59",
+      customerid: "a0bc2862-6eeb-4574-81ee-d51ad24b6a59",
+      firstname: "blue",
+      lastname: "color",
+      email: "bluecolor@gmail.com",
+      phonenumber: "883000000",
+      nationalid: "tyhigff",
+      isconsent: false,
+      created_at: "2025-07-29T04:27:02.788Z",
+      datecreated: "2025-07-29T04:27:02.788Z",
+      updated_at: "2025-07-29T04:27:02.788Z"
+    },
+    {
+      _id: "a951e7c0-f330-4368-9e87-9f51d8d68603",
+      customerid: "a951e7c0-f330-4368-9e87-9f51d8d68603",
+      firstname: "grace",
+      lastname: "banda",
+      email: "gracebanda@gmail.com",
+      phonenumber: "266000000000",
+      nationalid: "TYhk38hh",
+      isconsent: false,
+      created_at: "2025-07-28T07:57:16.364Z",
+      datecreated: "2025-07-28T07:57:16.364Z",
+      updated_at: "2025-07-28T07:57:16.364Z"
+    },
+    {
+      _id: "c0b5191d-954a-4b56-b55d-ada202622415",
+      customerid: "c0b5191d-954a-4b56-b55d-ada202622415",
+      firstname: "Henry",
+      lastname: "Sauzande",
+      email: "HS@gmail.com",
+      phonenumber: "266000000000",
+      nationalid: "GRR67gg78",
+      isconsent: true,
+      created_at: "2025-07-30T08:13:21.100Z",
+      datecreated: "2025-07-30T08:13:55.709Z",
+      updated_at: "2025-07-30T08:13:55.709Z"
+    }
+  ];
+  
+  // Define table schema for customer table
+  const customerSchema = {
+    customerid: { type: "text", name: "Customer ID" },
+    firstname: { type: "text", name: "First Name" },
+    lastname: { type: "text", name: "Last Name" },
+    email: { type: "text", name: "Email" },
+    phonenumber: { type: "text", name: "Phone Number" },
+    nationalid: { type: "text", name: "National ID" },
+    isconsent: { type: "boolean", name: "Consent" },
+    created_at: { type: "datetime", name: "Created At" },
+    datecreated: { type: "datetime", name: "Date Created" },
+    updated_at: { type: "datetime", name: "Updated At" }
+  };
   
   // Get columns from schema or use provided columns
   $: availableColumns = columns.length > 0 ? 
     columns : 
-    Object.keys(tableSchema).filter(key => 
-      tableSchema[key]?.type !== "link" && 
-      tableSchema[key]?.type !== "attachment" &&
-      !key.startsWith("_")
+    Object.keys(customerSchema).filter(key => 
+      !key.startsWith("_") && key !== "customerid"  // Hide internal fields
     );
+  
+  // Initialize data and schema
+  function initializeData() {
+    allRows = [...dummyData];
+    tableSchema = customerSchema;
+    loading = false;
+    error = null;
+    
+    // Reset pagination when data changes
+    currentPage = 1;
+    selectedRows = new Set();
+    
+    if (onRefresh) {
+      onRefresh({ rows: allRows, totalRows: allRows.length });
+    }
+  }
   
   // Filter and search data
   $: filteredData = allRows.filter(item => {
@@ -76,54 +233,56 @@
     totalRows: sortedData.length,
     loading,
     error,
-    refresh: fetchData
+    refresh: initializeData
   };
   
-  
   async function fetchData() {
-    if (!datasource && !table) return;
-    
     loading = true;
     error = null;
     
     try {
-      let response;
-      
-      if (table) {
-        // For table data source, use the correct API method
-        const query = {
-          tableId: table._id || table,
-          limit: 1000 // Adjust as needed
-        };
-        response = await API.searchTable(query);
-        
-        // Get table schema - use the table object directly if available
-        if (table.schema) {
-          tableSchema = table.schema;
-        } else {
-          // Fallback to API call
-          try {
-            const tableInfo = await API.fetchTableDefinition(table._id || table);
-            tableSchema = tableInfo?.schema || {};
-          } catch (schemaError) {
-            console.warn("Could not fetch table schema:", schemaError);
-            tableSchema = {};
+      // For now, just use dummy data
+      // In production, you would fetch from your datasource/table here
+      if (datasource || table) {
+        // Try to fetch real data if datasource/table is provided
+        try {
+          let response;
+          
+          if (table && API) {
+            const query = {
+              tableId: table._id || table,
+              limit: 1000
+            };
+            response = await API.searchTable(query);
+            
+            if (table.schema) {
+              tableSchema = table.schema;
+            }
+          } else if (datasource && API) {
+            response = await API.fetchDatasource(datasource);
           }
+          
+          // Handle different response formats
+          if (response?.rows) {
+            allRows = response.rows;
+          } else if (response?.data) {
+            allRows = response.data;
+          } else if (Array.isArray(response)) {
+            allRows = response;
+          } else {
+            // Fall back to dummy data if API fails
+            throw new Error("No data returned from API");
+          }
+        } catch (apiError) {
+          console.warn("API fetch failed, using dummy data:", apiError);
+          // Use dummy data as fallback
+          allRows = [...dummyData];
+          tableSchema = customerSchema;
         }
-      } else if (datasource) {
-        // For other data sources
-        response = await API.fetchDatasource(datasource);
-      }
-      
-      // Handle different response formats
-      if (response?.rows) {
-        allRows = response.rows;
-      } else if (response?.data) {
-        allRows = response.data;
-      } else if (Array.isArray(response)) {
-        allRows = response;
       } else {
-        allRows = [];
+        // No datasource specified, use dummy data
+        allRows = [...dummyData];
+        tableSchema = customerSchema;
       }
       
       // Reset pagination when data changes
@@ -137,7 +296,9 @@
     } catch (err) {
       console.error("Error fetching data:", err);
       error = err.message || "Failed to fetch data";
-      allRows = [];
+      // Use dummy data as fallback
+      allRows = [...dummyData];
+      tableSchema = customerSchema;
     } finally {
       loading = false;
     }
@@ -168,7 +329,7 @@
     if (selectedRows.size === paginatedData.length && paginatedData.length > 0) {
       selectedRows = new Set();
     } else {
-      selectedRows = new Set(paginatedData.map(item => item._id || item.id || item._rev));
+      selectedRows = new Set(paginatedData.map(item => getRowId(item)));
     }
   }
   
@@ -222,12 +383,12 @@
   }
   
   function getRowId(row) {
-    return row._id || row.id || row._rev || JSON.stringify(row);
+    return row._id || row.id || row.customerid || row._rev || JSON.stringify(row);
   }
   
   // Initialize on mount
   onMount(() => {
-    fetchData();
+    initializeData();
   });
 </script>
 
@@ -237,7 +398,7 @@
     <div class="table-header">
       <div class="header-content">
         <div class="header-info">
-          <h3 class="table-title">Data Table</h3>
+          <h3 class="table-title">Customer Data Table</h3>
           <p class="table-subtitle">
             {#if loading}
               Loading...
@@ -262,7 +423,7 @@
             <div class="search-container">
               <input
                 type="text"
-                placeholder="Search..."
+                placeholder="Search customers..."
                 bind:value={searchTerm}
                 class="search-input"
                 disabled={loading}
@@ -283,7 +444,7 @@
     {#if loading}
       <div class="loading-state">
         <div class="loading-spinner"></div>
-        <p>Loading data...</p>
+        <p>Loading customer data...</p>
       </div>
     {/if}
     
@@ -298,7 +459,7 @@
     {/if}
     
     <!-- Table Section -->
-    {#if !loading && !error}
+    {#if !loading}
       <div class="table-wrapper">
         <table class="data-table">
           <thead>
@@ -415,7 +576,7 @@
         {#if paginatedData.length === 0 && !loading}
           <div class="empty-state">
             <p>
-              {searchTerm ? `No results found for "${searchTerm}"` : "No data to display"}
+              {searchTerm ? `No customers found for "${searchTerm}"` : "No customer data to display"}
             </p>
             {#if searchTerm}
               <button class="clear-search" on:click={() => searchTerm = ""}>
@@ -481,6 +642,7 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    width: 100%;
   }
   
   .table-header {
@@ -838,7 +1000,7 @@
       gap: 1rem;
     }
     
-    .table-header,
+    .table-header-cell,
     .table-cell,
     .select-cell,
     .actions-cell {
